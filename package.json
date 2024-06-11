@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwrite test restful-booker/api_testing_with_playwright.spec.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

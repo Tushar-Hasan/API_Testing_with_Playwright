@@ -1,20 +1,18 @@
 import { test, expect } from "@playwright/test";
-const fs = require("fs");
+//const fs = require("fs");
 import * as data from "../../data/testData.json";
 import updateJsonFile from "../../utils/updateJsonFile";
 import path from "path";
 
-const filePath = path.resolve(__dirname, "../data/testData.json");
+const filePath = path.resolve(__dirname, "../../data/testData.json");
 
 test("Booking - GetBookingIds", async ({ request }) => {
-  const response = await request.get(
-    "https://restful-booker.herokuapp.com/booking"
-  );
+  const response = await request.get(`/booking`);
   console.log(await response.json());
   expect(response.status()).toBe(200);
 });
-test("Auth - CreateToken", async ({ request, baseURL }) => {
-  const response = await request.post(`${baseURL}auth`, {
+test("Auth - CreateToken", async ({ request }) => {
+  const response = await request.post(`/auth`, {
     data: {
       username: "admin",
       password: "password123",
@@ -31,8 +29,8 @@ test("Auth - CreateToken", async ({ request, baseURL }) => {
   expect.soft(response.statusText()).toEqual("OK");
 });
 
-test("Booking - CreateBooking", async ({ request, baseURL }) => {
-  const response = await request.post(`${baseURL}booking`, {
+test("Booking - CreateBooking", async ({ request }) => {
+  const response = await request.post(`/booking`, {
     data: {
       firstname: "Keyeser",
       lastname: "Durden",
@@ -50,24 +48,56 @@ test("Booking - CreateBooking", async ({ request, baseURL }) => {
     },
   });
   console.log(await response.json());
+  const responsebody = await response.json();
   expect(response.status()).toBe(200);
-  let user_id = (await response.json()).bookingid;
-
+  let user_id = await responsebody.bookingid;
   await updateJsonFile({ bookingid: user_id }, filePath);
+
   expect.soft(response.status()).toBe(200);
   expect.soft(response.ok()).toBeTruthy();
   expect.soft(response.statusText()).toEqual("OK");
+
+  expect.soft(responsebody.booking).toHaveProperty("firstname", "Keyeser");
+  expect.soft(responsebody.booking).toHaveProperty("lastname", "Durden");
+  expect.soft(responsebody.booking).toHaveProperty("totalprice", 111);
+  expect.soft(responsebody.booking).toHaveProperty("depositpaid", true);
+  expect
+    .soft(responsebody.booking.bookingdates)
+    .toHaveProperty("checkin", "2018-01-01");
+  expect
+    .soft(responsebody.booking.bookingdates)
+    .toHaveProperty("checkout", "2019-01-01");
+  expect
+    .soft(responsebody.booking)
+    .toHaveProperty("additionalneeds", "Breakfast");
 });
 test("Booking - GetBooking", async ({ request, baseURL }) => {
   //console.log("id", user_id);
-  const url = `${baseURL}booking/${data.bookingid}`;
-  console.log(url);
 
-  const response = await request.get(url);
+  console.log(`${baseURL}booking/${data.bookingid}`);
+  
+  const response = await request.get(`${baseURL}booking/${data.bookingid}`);
   console.log(await response.json());
+  const responsebody = await response.json();
   expect.soft(response.status()).toBe(200);
   expect.soft(response.ok()).toBeTruthy();
   expect.soft(response.statusText()).toEqual("OK");
+
+  expect.soft(response.status()).toBe(200);
+  expect.soft(response.ok()).toBeTruthy();
+  expect.soft(response.statusText()).toEqual("OK");
+
+  expect.soft(responsebody).toHaveProperty("firstname", "Keyeser");
+  expect.soft(responsebody).toHaveProperty("lastname", "Durden");
+  expect.soft(responsebody).toHaveProperty("totalprice", 111);
+  expect.soft(responsebody).toHaveProperty("depositpaid", true);
+  expect
+    .soft(responsebody.bookingdates)
+    .toHaveProperty("checkin", "2018-01-01");
+  expect
+    .soft(responsebody.bookingdates)
+    .toHaveProperty("checkout", "2019-01-01");
+  expect.soft(responsebody).toHaveProperty("additionalneeds", "Breakfast");
 });
 
 test("Booking - UpdateBooking", async ({ request, baseURL }) => {
@@ -90,9 +120,23 @@ test("Booking - UpdateBooking", async ({ request, baseURL }) => {
     },
   });
   console.log(await response.json());
+  const responsebody = await response.json();
   expect.soft(response.status()).toBe(200);
   expect.soft(response.ok()).toBeTruthy();
   expect.soft(response.statusText()).toEqual("OK");
+  expect.soft(responsebody).toHaveProperty("firstname", "Soze");
+  expect.soft(responsebody).toHaveProperty("lastname", "Durden");
+  expect.soft(responsebody).toHaveProperty("totalprice", 205);
+  expect.soft(responsebody).toHaveProperty("depositpaid", true);
+  expect
+    .soft(responsebody.bookingdates)
+    .toHaveProperty("checkin", "2018-01-01");
+  expect
+    .soft(responsebody.bookingdates)
+    .toHaveProperty("checkout", "2019-01-01");
+  expect
+    .soft(responsebody)
+    .toHaveProperty("additionalneeds", "Breakfast");
 });
 
 test("Booking - PartialUpdateBooking", async ({ request, baseURL }) => {
@@ -111,6 +155,14 @@ test("Booking - PartialUpdateBooking", async ({ request, baseURL }) => {
   expect.soft(response.status()).toBe(200);
   expect.soft(response.ok()).toBeTruthy();
   expect.soft(response.statusText()).toEqual("OK");
+  const responsebody = await response.json();
+  expect.soft(response.status()).toBe(200);
+  expect.soft(response.ok()).toBeTruthy();
+  expect.soft(response.statusText()).toEqual("OK");
+
+  expect.soft(responsebody).toHaveProperty("firstname", "Tylar");
+
+  expect.soft(responsebody).toHaveProperty("depositpaid", false);
 });
 
 test("Booking - DeleteBooking", async ({ request, baseURL }) => {
