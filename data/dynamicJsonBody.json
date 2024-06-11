@@ -1,0 +1,11 @@
+{
+  "firstname": "{0}",
+  "lastname": "Winter",
+  "totalprice": 111999,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2018-01-01",
+    "checkout": "{1}"
+  },
+  "additionalneeds": "Breakfast"
+}
