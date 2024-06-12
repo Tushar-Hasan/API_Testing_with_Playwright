@@ -1,0 +1,12 @@
+{
+  bookingid: 3423,
+  booking: {
+    firstname: 'Keyeser',
+    lastname: 'Durden',
+    totalprice: 111,
+    depositpaid: true,
+    bookingdates: { checkin: '2018-01-01', checkout: '2019-01-01' },
+    additionalneeds: 'Breakfast'
+  }
+}
+Data updated in c:\BS_WS\Playwright\Api Testing\API_Testing_with_Playwright\data\testData.json

@@ -1,0 +1,8 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Jun 12 14:58:21 BDT 2024","Wed Jun 12 14:58:23 BDT 2024","1151","chromium","apiTesting.spec.js","","","","Booking - UpdateBooking",""
+"passed","Wed Jun 12 14:58:19 BDT 2024","Wed Jun 12 14:58:20 BDT 2024","1120","chromium","apiTesting.spec.js","","","","Booking - CreateBooking",""
+"passed","Wed Jun 12 14:58:18 BDT 2024","Wed Jun 12 14:58:19 BDT 2024","1106","chromium","apiTesting.spec.js","","","","Auth - CreateToken",""
+"passed","Wed Jun 12 14:58:20 BDT 2024","Wed Jun 12 14:58:21 BDT 2024","1130","chromium","apiTesting.spec.js","","","","Booking - GetBooking",""
+"passed","Wed Jun 12 14:58:23 BDT 2024","Wed Jun 12 14:58:24 BDT 2024","1119","chromium","apiTesting.spec.js","","","","Booking - PartialUpdateBooking",""
+"passed","Wed Jun 12 14:58:24 BDT 2024","Wed Jun 12 14:58:25 BDT 2024","1140","chromium","apiTesting.spec.js","","","","Booking - DeleteBooking",""
+"passed","Wed Jun 12 14:58:17 BDT 2024","Wed Jun 12 14:58:18 BDT 2024","1583","chromium","apiTesting.spec.js","","","","Booking - GetBookingIds",""

@@ -30,6 +30,20 @@ module.exports = defineConfig({
         open: "always",
       },
     ],
+    [
+      "allure-playwright",
+      {
+        detail: true,
+        outputFolder: "allure-results",
+        suiteTitle: true,
+        environmentInfo: {
+          framework: "playwright",
+          os_platform: "windows",
+          os_release: "11",
+          os_version: "101025",
+        },
+      },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
